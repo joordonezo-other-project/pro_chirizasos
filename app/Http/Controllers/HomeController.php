@@ -30,12 +30,6 @@ class HomeController extends Controller
 
     public function getAllInventory()
     {
-        /*$inventory = DB::table('inventory')
-        ->join('observations', 'inventory.id', '=', 'observations.idField')
-        ->select('inventory.*', 'observations.description as observation')
-        ->where('observations.table', '=', 'inventory')
-        ->distinct()
-        ->get();*/
         $inventory = DB::table('inventory')->get();
         foreach ($inventory as $item) {
             $item->observation = DB::table('observations')->where('idField', '=', $item->id)->where('table', '=', 'inventory')->get();
@@ -67,12 +61,68 @@ class HomeController extends Controller
     {
         DB::table('inventory')->insert([
             'name' => $request->name,
-             'description' => $request->description,
-              'typeOfStorage' => $request->typeOfStorage,
-               'expirationDate' => $request->expirationDate,
-                'quantity' => 0
-            ]);
+            'description' => $request->description,
+            'typeOfStorage' => $request->typeOfStorage,
+            'expirationDate' => $request->expirationDate,
+            'quantity' => 0,
+        ]);
         return response()->json(['success' => 'Producto agregado correctamente']);
+
+    }
+    public function searchProductByName(Request $request)
+    {
+        $name = $request->name;
+        $inventory = DB::table('inventory')->where('name', 'like', '%' . $name . '%')->get();
+        return response()->json($inventory);
+    }
+
+    public function saveNewProduct(Request $request)
+    {
+        $formulation = $request->formulation;
+        $dataFinalFormulation = [];
+        foreach ($formulation as $item) {
+            array_push($dataFinalFormulation, [
+                'idInventory' => $item['idInventory'],
+                'quantity' => $item['quantity'],
+                'units' => $item['units'],
+            ]);
+        }
+        $idsFormulation = DB::table('formulation')->insert($dataFinalFormulation);
+
+        DB::table('product')->insert([
+            'reference' => $request->reference,
+            'name' => $request->name,
+            'description' => $request->description,
+            'idsFormulation' => json_encode($idsFormulation),
+            'wrapper' => $request->wrapper,
+            'typeOfStorage' => $request->typeOfStorage,
+        ]);
+        return response()->json(['success' => 'Producto agregado correctamente']);
+
+    }
+
+    public function getAllProductReference()
+    {
+        $product = DB::table('product')->select('id', 'reference')->get();
+        return response()->json($product);
+    }
+
+    public function saveNewPE(Request $request)
+    {
+        $productionPE = $request->productionPE;
+        $dataFinalProductionPE = [];
+        $date = '';
+        foreach ($productionPE as $item) {
+            $date = $item['dateOfProduction'];
+            array_push($dataFinalProductionPE, [
+                'idProduct' => $item['idProduct'],
+                'estimatedProduction' => $item['estimatedProduction'],
+                'realProduction' => $item['realProduction'],
+                'dateOfProduction' => $item['dateOfProduction'],
+            ]);
+        }
+        DB::table('production')->insert($dataFinalProductionPE);
+        return response()->json(['success' => 'Producción Esperada para la fecha '.$date.' agregada correctamente']);
 
     }
 }

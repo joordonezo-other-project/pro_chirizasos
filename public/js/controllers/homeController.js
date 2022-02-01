@@ -4,6 +4,20 @@ let currentDataAddQuality = {
     dataModalAddQualityContent: [],
     operator: null
 }
+
+let currentNewProduct = {
+    reference: null,
+    name: null,
+    description: null,
+    productsFormulation: [],
+    wrapper: null,
+    typeOfStorage: null,
+}
+
+let tempListProductFormulation = [];
+
+let tempReference = [];
+
 const getAllInventory = () => {
     //console.log('holaaaa');
     fetch('./getAllInventory', {
@@ -14,7 +28,6 @@ const getAllInventory = () => {
         headers: {
             'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
             'Content-Type': 'application/json',
-            //'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             'X-CSRF-TOKEN': document.getElementById('_token').value
         }
     })
@@ -80,7 +93,6 @@ const saveQuantity = () => {
             headers: {
                 'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
                 'Content-Type': 'application/json',
-                //'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 'X-CSRF-TOKEN': document.getElementById('_token').value
             },
             body: JSON.stringify({
@@ -137,7 +149,6 @@ const saveNewQuantity = () => {
         headers: {
             'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
             'Content-Type': 'application/json',
-            //'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             'X-CSRF-TOKEN': document.getElementById('_token').value
         },
         body: JSON.stringify({
@@ -156,6 +167,205 @@ const saveNewQuantity = () => {
                 document.getElementById('messageSuccessText').innerText = data.success;
                 document.getElementById('messageSuccess').classList.remove('d-none');
                 getAllInventory();
+                setTimeout(() => {
+                    document.getElementById('messageSuccess').classList.add('d-none');
+
+                }, 3000);
+            }
+        });
+
+}
+
+const searchProductByName = () => {
+    let value = document.getElementById('productNameSearch').value;
+    if (value.length > 2) {
+        fetch('./searchProductByName', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.getElementById('_token').value
+            },
+            body: JSON.stringify({
+                name: value
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (!data.error) {
+                    tempListProductFormulation = data;
+                    //draw in listProductNameSearch
+                    let listProductNameSearch = document.querySelector('#listProductNameSearch');
+                    listProductNameSearch.innerHTML = '';
+                    data.forEach(item => {
+                        let li = document.createElement('li');
+                        li.classList.add('list-group-item');
+                        li.innerHTML = `
+                        <a onclick="addProductNameSearch(${item.id})">${item.name} <img src="img/icos/plus-circle.svg"> </a>
+                        `;
+                        listProductNameSearch.appendChild(li);
+                    });
+                }
+            });
+    }
+}
+
+const addProductNameSearch = (id) => {
+    let item = tempListProductFormulation.find(element => element.id == id);
+    let listProductFormulation = document.querySelector('#listProductFormulation');
+    let li = document.createElement('li');
+    li.classList.add('list-group-item');
+    li.innerHTML = `
+    <div class="input-group">
+    <span class="input-group-text">
+    <div class="form-group">
+    <a onclick="removeProductNameSearch(${item.id})">${item.name}
+    <img src="img/icos/dash-circle.svg">
+    </a>
+    </div>
+    </span>
+    <input type="number" class="form-control mb-2" id="valueProductFormulation${item.id}" value="0" required>
+    <span class="input-group-text"> Kg</span>
+    </div>`;
+    listProductFormulation.appendChild(li);
+    currentNewProduct.productsFormulation.push(item);
+}
+
+const removeProductNameSearch = (id) => {
+    let listProductFormulation = document.querySelector('#listProductFormulation');
+    let item = currentNewProduct.productsFormulation.find(element => element.id == id);
+    let index = currentNewProduct.productsFormulation.indexOf(item);
+    currentNewProduct.productsFormulation.splice(index, 1);
+    listProductFormulation.removeChild(listProductFormulation.lastChild);
+
+}
+
+const saveNewProduct = () => {
+    fetch('./saveNewProduct', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById('_token').value
+        },
+        body: JSON.stringify({
+            reference: document.getElementById('inputNewProductReference').value,
+            name: document.getElementById('inputNewProductName').value,
+            description: document.getElementById('inputNewProductDescription').value,
+            formulation: getProductFormulationWithValue(),
+            wrapper: document.getElementById('inputNewProductWrapper').value,
+            typeOfStorage: document.getElementById('inputNewProductTypeOfStorage').value,
+
+
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (!data.error) {
+                let btnModalClose = document.getElementById('btnModalAddNewProductClose');
+                btnModalClose.click();
+                document.getElementById('messageSuccessText').innerText = data.success;
+                document.getElementById('messageSuccess').classList.remove('d-none');
+                setTimeout(() => {
+                    document.getElementById('messageSuccess').classList.add('d-none');
+
+                }, 3000);
+            }
+        });
+
+}
+
+const getProductFormulationWithValue = () => {
+    let listProducts = [];
+    currentNewProduct.productsFormulation.forEach(item => {
+        let itemTemp = {
+            idInventory: item.id,
+            quantity: document.getElementById(`valueProductFormulation${item.id}`).value,
+            units: 'kg'
+        }
+        listProducts.push(itemTemp);
+    });
+    return listProducts;
+}
+
+const getAllProductReference = () => {
+    fetch('./getAllProductReference', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById('_token').value
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (!data.error) {
+                tempReference = data;
+                //draw inputs group in modalAddPE
+                let modalAddPEBodyTable = document.querySelector('#modalAddPE .modal-body table tbody');
+                modalAddPEBodyTable.innerHTML = '';
+                data.forEach(item => {
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>
+                    ${item.id}
+                    </td>
+                    <td>${item.reference}</td>
+                    <td><input id="valuePE${item.id}" type="number" class="form-control" value="0"></td>
+                    `;
+                    modalAddPEBodyTable.appendChild(tr);
+                });
+            }
+        });
+
+}
+
+const saveNewPE = () => {
+let productionPE = [];
+    tempReference.forEach(item => {
+        let itemTemp = {
+            idProduct: item.id,
+            estimatedProduction: Number(document.getElementById(`valuePE${item.id}`).value),
+            realProduction: 0,
+            dateOfProduction: document.getElementById('inputDateProduction').value,
+        }
+        productionPE.push(itemTemp);
+    });
+    console.log(productionPE);
+    fetch('./saveNewPE', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById('_token').value
+        },
+        body: JSON.stringify({
+            productionPE: productionPE,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (!data.error) {
+                let btnModalClose = document.getElementById('btnModalAddPEClose');
+                btnModalClose.click();
+                document.getElementById('messageSuccessText').innerText = data.success;
+                document.getElementById('messageSuccess').classList.remove('d-none');
                 setTimeout(() => {
                     document.getElementById('messageSuccess').classList.add('d-none');
 
