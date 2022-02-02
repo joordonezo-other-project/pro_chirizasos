@@ -19,7 +19,6 @@ let tempListProductFormulation = [];
 let tempReference = [];
 
 const getAllInventory = () => {
-    //console.log('holaaaa');
     fetch('./getAllInventory', {
         method: 'POST',
         mode: 'cors',
@@ -34,7 +33,6 @@ const getAllInventory = () => {
         .then(response => response.json())
         .then(data => {
             if (!data.error) {
-                console.log(data);
                 currentDataAddQuality.dataModalAddQualityContent = data;
                 //pait rows in tableMateriaPrima with data
                 let table = document.getElementById('tableMateriaPrima');
@@ -65,7 +63,6 @@ const getAllInventory = () => {
 }
 
 const chargeDataRawMaterialsById = (id, operator) => {
-    //console.log(id);
     currentDataAddQuality.currentId = id;
     currentDataAddQuality.operator = operator;
     let modal = document.querySelector('#modalAddQualityContent>div');
@@ -104,7 +101,6 @@ const saveQuantity = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if (!data.error) {
                     let btnModalClose = document.getElementById('btnModalAddQualityClose');
                     btnModalClose.click();
@@ -160,7 +156,6 @@ const saveNewQuantity = () => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (!data.error) {
                 let btnModalClose = document.getElementById('btnModalAddNewQualityClose');
                 btnModalClose.click();
@@ -195,7 +190,6 @@ const searchProductByName = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if (!data.error) {
                     tempListProductFormulation = data;
                     //draw in listProductNameSearch
@@ -268,7 +262,6 @@ const saveNewProduct = () => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (!data.error) {
                 let btnModalClose = document.getElementById('btnModalAddNewProductClose');
                 btnModalClose.click();
@@ -296,7 +289,7 @@ const getProductFormulationWithValue = () => {
     return listProducts;
 }
 
-const getAllProductReference = () => {
+const getAllProductReference = (dateByDay) => {
     fetch('./getAllProductReference', {
         method: 'POST',
         mode: 'cors',
@@ -310,14 +303,18 @@ const getAllProductReference = () => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (!data.error) {
                 tempReference = data;
+                document.getElementById('inputDateProductionPE').value = dateByDay;
+                document.getElementById('inputDateProductionPR').value = dateByDay;
                 //draw inputs group in modalAddPE
                 let modalAddPEBodyTable = document.querySelector('#modalAddPE .modal-body table tbody');
+                let modalAddPRBodyTable = document.querySelector('#modalAddPR .modal-body table tbody');
                 modalAddPEBodyTable.innerHTML = '';
+                modalAddPRBodyTable.innerHTML = '';
                 data.forEach(item => {
                     let tr = document.createElement('tr');
+                    let tr2 = document.createElement('tr');
                     tr.innerHTML = `
                     <td>
                     ${item.id}
@@ -325,7 +322,15 @@ const getAllProductReference = () => {
                     <td>${item.reference}</td>
                     <td><input id="valuePE${item.id}" type="number" class="form-control" value="0"></td>
                     `;
+                    tr2.innerHTML = `
+                    <td>
+                    ${item.id}
+                    </td>
+                    <td>${item.reference}</td>
+                    <td><input id="valuePR${item.id}" type="number" class="form-control" value="0"></td>
+                    `;
                     modalAddPEBodyTable.appendChild(tr);
+                    modalAddPRBodyTable.appendChild(tr2);
                 });
             }
         });
@@ -333,17 +338,16 @@ const getAllProductReference = () => {
 }
 
 const saveNewPE = () => {
-let productionPE = [];
+    let productionPE = [];
     tempReference.forEach(item => {
         let itemTemp = {
             idProduct: item.id,
             estimatedProduction: Number(document.getElementById(`valuePE${item.id}`).value),
             realProduction: 0,
-            dateOfProduction: document.getElementById('inputDateProduction').value,
+            dateOfProduction: document.getElementById('inputDateProductionPE').value,
         }
         productionPE.push(itemTemp);
     });
-    console.log(productionPE);
     fetch('./saveNewPE', {
         method: 'POST',
         mode: 'cors',
@@ -360,7 +364,6 @@ let productionPE = [];
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (!data.error) {
                 let btnModalClose = document.getElementById('btnModalAddPEClose');
                 btnModalClose.click();
@@ -370,7 +373,172 @@ let productionPE = [];
                     document.getElementById('messageSuccess').classList.add('d-none');
 
                 }, 3000);
+                updateCalendar();
             }
         });
 
+}
+function getCalendarStart(dayOfWeek, currentDate) {
+    var date = currentDate - 1;
+    var startOffset = (date % 7) - dayOfWeek;
+    if (startOffset > 0) {
+        startOffset -= 7;
+    }
+    return Math.abs(startOffset);
+}
+
+const updateCalendar = async () => {
+
+    let currentDate = new Date();
+    let firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    let neutralDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    let day = firstDate.getUTCDay();
+    let date = firstDate.getUTCDate();
+    let dayOfWeek = getCalendarStart(day, date);
+    let tableCalendar = document.querySelector('#tableProduction tbody');
+    tableCalendar.innerHTML = '';
+    let currenDay = 0;
+    let currentProduction = await getProductionByMonth(currentDate.getFullYear(), (currentDate.getMonth() + 1));
+
+    for (i = 0; i < 6; i++) {
+        let tr = document.createElement('tr');
+        for (j = 0; j < 7; j++) {
+            let td = document.createElement('td');
+            if ((i == 0 && j > dayOfWeek - 1) || (i > 0 && neutralDate.getDate() > currenDay)) {
+                currenDay++;
+                let dateByDay = getDateFormat(currentDate.getFullYear(), currentDate.getMonth(), currenDay);
+                let prodTotal = currentProduction.find(item => item.dateOfProduction == dateByDay);
+                td.innerHTML = `
+                                        <div class="container">
+                                            <span class="badge bg-light text-dark">${dateByDay}</span>
+                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
+                                                    </b> ${prodTotal ? prodTotal.pe : 0} Kg</span></div>
+                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
+                                            ${prodTotal ? prodTotal.pr : 0} Kg</span></div>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary" onclick="getAllProductReference('${dateByDay}')" data-bs-toggle="modal" data-bs-target="#modalAddPE" class="btn btn-primary mb-2"
+                                            title="Añadir nuevo producto">PE <img
+                                                    src="img/icos/plus-circle.svg"></button>
+                                            <button class="btn btn-secondary" onclick="getAllProductReference('${dateByDay}')"  data-bs-toggle="modal" data-bs-target="#modalAddPR" class="btn btn-primary mb-2">PR <img
+                                                    src="img/icos/plus-circle.svg"></button>
+                                        </div>
+            `;
+            }
+            tr.appendChild(td);
+        }
+        tableCalendar.appendChild(tr);
+    }
+
+}
+
+const getDateFormat = (year, month, day) => {
+    //dateFormat yyyy-MM-dd
+    return `${year}-${(month + 1) > 9 ? (month + 1) : '0' + (month + 1)}-${day > 9 ? day : '0' + day}`;
+}
+
+const getProductionByMonth = (year, month) => {
+
+    return fetch('./getProductionByMonth', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById('_token').value
+        },
+        body: JSON.stringify({
+            month: month,
+            year: year,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                return data;
+            }
+        });
+}
+
+const saveNewPR = () => {
+    let productionPR = [];
+    tempReference.forEach(item => {
+        let itemTemp = {
+            idProduct: item.id,
+            realProduction: Number(document.getElementById(`valuePR${item.id}`).value),
+            dateOfProduction: document.getElementById('inputDateProductionPR').value,
+        }
+        productionPR.push(itemTemp);
+    });
+    fetch('./saveNewPR', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById('_token').value
+        },
+        body: JSON.stringify({
+            productionPR: productionPR,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                let btnModalClose = document.getElementById('btnModalAddPRClose');
+                btnModalClose.click();
+                document.getElementById('messageSuccessText').innerText = data.success;
+                document.getElementById('messageSuccess').classList.remove('d-none');
+                setTimeout(() => {
+                    document.getElementById('messageSuccess').classList.add('d-none');
+
+                }, 3000);
+                updateCalendar();
+            }
+        });
+
+}
+
+const getAllProviders = () => {
+    fetch('./getAllProviders', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.getElementById('_token').value
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (!data.error) {
+                let tableProviders = document.querySelector('#tableProviders tbody');
+                tableProviders.innerHTML = '';
+                data.forEach(item => {
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = `
+                                        <td>${item.id}</td>
+                                        <td>${item.name}</td>
+                                        <td>${item.address}</td>
+                                        <td>${item.phone}</td>
+                                        <td>${item.nit}</td>
+                                        <td>${item.webPage}</td>
+                                        <td>${item.dateOfVinculation}</td>
+                                        <td>
+                                        <button data-bs-toggle="modal" data-bs-target="#modalAddQuality" class="btn btn-light" onclick="chargeDataRawMaterialsById(${item.id},'+')" title="Añadir de este producto"><img src="img/icos/plus-circle.svg"></button>
+                                        <button data-bs-toggle="modal" data-bs-target="#modalAddQuality" class="btn btn-light" onclick="chargeDataRawMaterialsById(${item.id},'-')" title="Retirar de este producto"><img src="img/icos/dash-circle.svg"></button>
+                                        <button class="btn btn-danger" onclick="showModalAddById(${item.id})" title="Desabilitar este producto"><img src="img/icos/archive-fill.svg"></button>
+                                        </td>
+                    `;
+                    tableProviders.appendChild(tr);
+                });
+            }
+        });
 }

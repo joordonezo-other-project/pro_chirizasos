@@ -28,3 +28,6 @@ Route::post('/searchProductByName', 'App\Http\Controllers\HomeController@searchP
 Route::post('/saveNewProduct', 'App\Http\Controllers\HomeController@saveNewProduct')->name('saveNewProduct');
 Route::post('/getAllProductReference', 'App\Http\Controllers\HomeController@getAllProductReference')->name('getAllProductReference');
 Route::post('/saveNewPE', 'App\Http\Controllers\HomeController@saveNewPE')->name('saveNewPE');
+Route::post('/getProductionByMonth', 'App\Http\Controllers\HomeController@getProductionByMonth')->name('getProductionByMonth');
+Route::post('/saveNewPR', 'App\Http\Controllers\HomeController@saveNewPR')->name('saveNewPR');
+Route::post('/getAllProviders', 'App\Http\Controllers\HomeController@getAllProviders')->name('getAllProviders');

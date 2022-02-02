@@ -122,7 +122,40 @@ class HomeController extends Controller
             ]);
         }
         DB::table('production')->insert($dataFinalProductionPE);
-        return response()->json(['success' => 'Producción Esperada para la fecha '.$date.' agregada correctamente']);
+        return response()->json(['success' => 'Producción Esperada para la fecha ' . $date . ' agregada correctamente']);
 
+    }
+
+    public function getProductionByMonth(Request $request)
+    {
+        $month = $request->month;
+        $year = $request->year;
+        $month = $month > 9 ? $month : '0' . $month;
+        $production = DB::table('production')
+            ->select('dateOfProduction', DB::raw('SUM(estimatedProduction) as pe'), DB::raw('SUM(realProduction) as pr'))
+            ->where('dateOfProduction', 'like', '%' . $year . '-' . $month . '%')
+            ->groupBy('dateOfProduction')
+            ->get();
+        return response()->json($production);
+    }
+
+    public function saveNewPR(Request $request)
+    {
+        $productionPR = $request->productionPR;
+        $date = '';
+        foreach ($productionPR as $item) {
+            $date = $item['dateOfProduction'];
+            DB::table('production')
+                ->where('dateOfProduction', '=', $item['dateOfProduction'])
+                ->where('idProduct', '=', $item['idProduct'])
+                ->update(['realProduction' => $item['realProduction']]);
+        }
+        return response()->json(['success' => 'Producción Real para la fecha ' . $date . ' agregada correctamente']);
+
+    }
+    public function getAllProviders()
+    {
+        $providers = DB::table('providers')->get();
+        return response()->json($providers);
     }
 }

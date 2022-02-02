@@ -14,7 +14,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                            aria-selected="false">Producción</button>
+                            aria-selected="false" onclick="updateCalendar()">Producción</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
@@ -24,7 +24,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-providers-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-providers" type="button" role="tab" aria-controls="pills-providers"
-                            aria-selected="false">Proveedores</button>
+                            aria-selected="false" onclick="getAllProviders()">Proveedores</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-delivery-tab" data-bs-toggle="pill"
@@ -161,613 +161,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="getAllProductReference()" data-bs-toggle="modal" data-bs-target="#modalAddPE" class="btn btn-primary mb-2"
-                                            title="Añadir nuevo producto">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Estimada:
-                                                    </b> 50T</span></div>
-                                            <div class="input-group-sm mb-2"><span class="input-group-text"><b>Real: </b>
-                                                    40T</span></div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" onclick="">PE <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                            <button class="btn btn-secondary" onclick="">PR <img
-                                                    src="img/icos/plus-circle.svg"></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <!--By js controller-->
                             </tbody>
                         </table>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="modalAddPE" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalAddPE" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -776,27 +176,63 @@
                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                      <div class="input-group">
-                                        <input id="inputDateProduction" type="date" class="form-control mb-2" required
-                                            autofocus>
+                                        <div class="input-group">
+                                            <input id="inputDateProductionPE" type="date" class="form-control mb-2" value=""
+                                                required autofocus>
+                                        </div>
+                                        <table class="table">
+                                            <caption>Producción Esperada</caption>
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Referencia</th>
+                                                    <th scope="col">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!--to-do from javaScript controller-->
+                                            </tbody>
+                                        </table>
                                     </div>
-                                      <table class="table">
-                                        <caption>Producción Esperada</caption>
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Referencia</th>
-                                                <th scope="col">Valor</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!--to-do from javaScript controller-->
-                                        </tbody>
-                                    </table>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="saveNewPE()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalAddPR" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Producción Real</h5>
+                                        <button id="btnModalAddPRClose" type="button" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <input id="inputDateProductionPR" type="date" class="form-control mb-2" value=""
+                                                required autofocus>
+                                        </div>
+                                        <table class="table">
+                                            <caption>Producción Real</caption>
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Referencia</th>
+                                                    <th scope="col">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!--to-do from javaScript controller-->
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary"
-                                            onclick="saveNewPE()">Guardar</button>
+                                            onclick="saveNewPR()">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -966,6 +402,24 @@
                     </div>
                     <div class="tab-pane fade" id="pills-providers" role="tabpanel" aria-labelledby="pills-providers-tab">
                         4
+                        <table class="table" id="tableProviders">
+                            <caption>Tabla de Proveedores</caption>
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Telefóno</th>
+                                    <th scope="col">Nit</th>
+                                    <th scope="col">Página Web</th>
+                                    <th scope="col">Fecha vinculación</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--to-do from javaScript controller-->
+                            </tbody>
+                        </table>
                     </div>
                     <div class="tab-pane fade" id="pills-delivery" role="tabpanel" aria-labelledby="pills-delivery-tab">
                         5
