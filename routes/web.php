@@ -31,3 +31,10 @@ Route::post('/saveNewPE', 'App\Http\Controllers\HomeController@saveNewPE')->name
 Route::post('/getProductionByMonth', 'App\Http\Controllers\HomeController@getProductionByMonth')->name('getProductionByMonth');
 Route::post('/saveNewPR', 'App\Http\Controllers\HomeController@saveNewPR')->name('saveNewPR');
 Route::post('/getAllProviders', 'App\Http\Controllers\HomeController@getAllProviders')->name('getAllProviders');
+Route::post('/saveEditProvider', 'App\Http\Controllers\HomeController@saveEditProvider')->name('saveEditProvider');
+Route::post('/saveAddProvider', 'App\Http\Controllers\HomeController@saveAddProvider')->name('saveAddProvider');
+Route::post('/changeStatusProviderById', 'App\Http\Controllers\HomeController@changeStatusProviderById')->name('changeStatusProviderById');
+Route::post('/getStock', 'App\Http\Controllers\HomeController@getStock')->name('getStock');
+Route::post('/saveOrder', 'App\Http\Controllers\HomeController@saveOrder')->name('saveOrder');
+Route::post('/getAllOrders', 'App\Http\Controllers\HomeController@getAllOrders')->name('getAllOrders');
+Route::post('/getOrderDetailsById', 'App\Http\Controllers\HomeController@getOrderDetailsById')->name('getOrderDetailsById');

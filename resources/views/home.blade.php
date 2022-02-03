@@ -29,7 +29,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-delivery-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-delivery" type="button" role="tab" aria-controls="pills-delivery"
-                            aria-selected="false">Pedidos</button>
+                            aria-selected="false" onclick="getAllOrders()">Pedidos</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-distribuitors-tab" data-bs-toggle="pill"
@@ -402,6 +402,9 @@
                     </div>
                     <div class="tab-pane fade" id="pills-providers" role="tabpanel" aria-labelledby="pills-providers-tab">
                         4
+                        <button data-bs-toggle="modal" data-bs-target="#modalAddProvider" class="btn btn-primary mb-2"
+                            title="Añadir nuevo proveedor">Nuevo Proveedor <img src="img/icos/plus-circle.svg"></button>
+
                         <table class="table" id="tableProviders">
                             <caption>Tabla de Proveedores</caption>
                             <thead class="table-light">
@@ -420,9 +423,355 @@
                                 <!--to-do from javaScript controller-->
                             </tbody>
                         </table>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalEditProvider" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Editar proveedor</h5>
+                                        <button id="btnModalEditProviderClose" type="button" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="modalObservationsContent" class="row mb-3 ">
+                                            <div class="input-group justify-content-center">
+                                                <div class="row mb-3">
+                                                    <label for="idEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Id') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="idEditProvider" type="text" class="form-control"
+                                                                disabled autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="nameEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="nameEditProvider" type="text" class="form-control"
+                                                                autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="addressEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Dirección') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="addressEditProvider" type="text"
+                                                                class="form-control" autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="phoneEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Telefóno') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="phoneEditProvider" type="text"
+                                                                class="form-control" autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="nitEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Nit') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="nitEditProvider" type="text" class="form-control"
+                                                                autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="webPageEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Página Web') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="webPageEditProvider" type="text"
+                                                                class="form-control" autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="dateOfVinculationEditProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Fecha Vinculación') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="dateOfVinculationEditProvider" type="date"
+                                                                class="form-control" autofocus disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="saveEditProvider()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalAddProvider" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Editar proveedor</h5>
+                                        <button id="btnModalAddProviderClose" type="button" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="modalObservationsContent" class="row mb-3 ">
+                                            <div class="input-group justify-content-center">
+                                                <div class="row mb-3">
+                                                    <label for="nameAddProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="nameAddProvider" type="text" class="form-control"
+                                                                autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="addressAddProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Dirección') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="addressAddProvider" type="text"
+                                                                class="form-control" autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="phoneAddProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Telefóno') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="phoneAddProvider" type="text" class="form-control"
+                                                                autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="nitAddProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Nit') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="nitAddProvider" type="text" class="form-control"
+                                                                autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="webPageAddProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Página Web') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="webPageAddProvider" type="text"
+                                                                class="form-control" autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="dateOfVinculationAddProvider"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Fecha Vinculación') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="dateOfVinculationAddProvider" type="date"
+                                                                class="form-control" autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="saveAddProvider()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="pills-delivery" role="tabpanel" aria-labelledby="pills-delivery-tab">
                         5
+                        <button data-bs-toggle="modal" data-bs-target="#modalAddOrderSell" class="btn btn-primary mb-2"
+                            title="Añadir nuevo proveedor" onclick="getStock()">Nuevo Pedido (Venta) <img
+                                src="img/icos/plus-circle.svg"></button>
+
+                        <button data-bs-toggle="modal" data-bs-target="#modalAddOrderBuy" class="btn btn-primary mb-2"
+                            title="Añadir nuevo proveedor">Nuevo Pedido (Compra) <img
+                                src="img/icos/plus-circle.svg"></button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalAddOrderSell" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Nueva Venta</h5>
+                                        <button id="btnModalAddOrderSellClose" type="button" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="modalObservationsContent" class="row mb-3 ">
+                                            <div class="input-group justify-content-center">
+                                                <div class="row mb-3">
+                                                    <label for="deliveryDate"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Fecha Entrega') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="deliveryDate" type="date" class="form-control"
+                                                                autofocus required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="orderDate"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Fecha Pedido') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="orderDate" type="date" class="form-control"
+                                                                autofocus disabled required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="nameClientOrder"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Nombre Cliente') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="nameClientOrder" type="text" class="form-control"
+                                                                autofocus required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="cantidad"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Referencia') }}</label>
+                                                    <div class="col-md-12">
+                                                        <div class="input-group">
+                                                            <ul id="listProductNameSearchSell"
+                                                                class="list-group  col-md-12 mb-2"></ul>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><img
+                                                                    src="img/icos/search.svg"></span>
+                                                            <input id="productReferenceSearch" type="text"
+                                                                class="form-control" placeholder="Referencia"
+                                                                onkeypress="searchProductSellByName()">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <table class="table" id="orderDetailsTable">
+                                                                <caption>Detalle de Pedido</caption>
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Nombre</th>
+                                                                        <th scope="col">Referencia</th>
+                                                                        <th scope="col">Cantidad</th>
+                                                                        <th scope="col">Descripción</th>
+                                                                        <th scope="col">Sub Total</th>
+                                                                        <th scope="col">Acciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <!--to-do from javaScript controller-->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="descriptionOrder"
+                                                        class="col-md-4 col-form-label text-md-end">{{ __('Comentarios') }}</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input id="descriptionOrder" type="text" class="form-control"
+                                                                autofocus>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="saveOrder()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table" id="allOrdesTable">
+                            <caption>Pedidos</caption>
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Fecha Pedido</th>
+                                    <th scope="col">Fecha entrega</th>
+                                    <th scope="col">Comentarios</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Detalle de Pedido</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--to-do from javaScript controller-->
+                            </tbody>
+                        </table>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalOrderDetails" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Detalle Pedido</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="modalObservationsContent" class="row mb-3 ">
+                                            <div class="input-group justify-content-center">
+
+                                                <table class="table" id="detailsOrderTableView">
+                                                    <caption>Detalle</caption>
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Referencia</th>
+                                                            <th scope="col">Cantidad</th>
+                                                            <th scope="col">Descripción</th>
+                                                            <th scope="col">Sub Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!--to-do from javaScript controller-->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="pills-distribuitors" role="tabpanel"
                         aria-labelledby="pills-distribuitors-tab">
