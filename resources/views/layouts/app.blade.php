@@ -10,8 +10,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/controllers/homeController.js') }}" defer></script>
+    <script src="{{ asset('js/controllers/inventaryController.js') }}" defer></script>
+    <script src="{{ asset('js/controllers/ordersController.js') }}" defer></script>
+    <script src="{{ asset('js/controllers/productionController.js') }}" defer></script>
+    <script src="{{ asset('js/controllers/providersController.js') }}" defer></script>
+    <script src="{{ asset('js/controllers/reportController.js') }}" defer></script>
+    <script src="{{ asset('js/controllers/stockController.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
