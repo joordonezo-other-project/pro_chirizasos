@@ -21,20 +21,22 @@ class InventoryController extends Controller
     {
         $id = $request->id;
         $quantity = $request->quantity;
+        $operator = $request->operator;
         $description = new \stdClass();
         $description->quantity = $quantity;
         $description->description = $request->concept;
+        $description->date = $request->date;
+        $description->operator = $request->operator;
+        
         DB::table('observations')->insert(['table' => 'inventory', 'description' => json_encode($description), 'idField' => $id]);
         $currentQuantity = DB::table('inventory')->where('id', $id)->value('quantity');
-        if ($request->operator == '+') {
+        if ($operator == '+') {
             $newQuantity = $currentQuantity + $quantity;
         } else {
             $newQuantity = $currentQuantity - $quantity;
         }
         DB::table('inventory')->where('id', $id)->update(['quantity' => $newQuantity]);
         return response()->json(['success' => 'Cantidad actualizada correctamente']);
-        //return response()->json(['success' => $request->id, 'quantity' => $request->quantity]);
-
     }
 
     public function saveNewQuantity(Request $request)

@@ -1,6 +1,8 @@
 const searchProductByName = () => {
     let value = document.getElementById('productNameSearch').value;
-    if (value.length > 2) {
+    let listProductNameSearch = document.querySelector('#listProductNameSearch');
+    listProductNameSearch.innerHTML = '';
+    if (value.length > 0) {
         fetch('./searchProductByName', {
             method: 'POST',
             mode: 'cors',
@@ -20,8 +22,6 @@ const searchProductByName = () => {
                 if (!data.error) {
                     tempListProductFormulation = data;
                     //draw in listProductNameSearch
-                    let listProductNameSearch = document.querySelector('#listProductNameSearch');
-                    listProductNameSearch.innerHTML = '';
                     data.forEach(item => {
                         let li = document.createElement('li');
                         li.classList.add('list-group-item');
@@ -136,12 +136,15 @@ const getAllProductReference = (dateByDay) => {
         .then(data => {
             if (!data.error) {
                 tempReference = data;
-                document.getElementById('inputDateProductionPE').value = dateByDay;
+                let inputDateProductionPE = document.getElementById('inputDateProductionPE');
+                if (inputDateProductionPE)
+                    inputDateProductionPE.value = dateByDay;
                 document.getElementById('inputDateProductionPR').value = dateByDay;
                 //draw inputs group in modalAddPE
                 let modalAddPEBodyTable = document.querySelector('#modalAddPE .modal-body table tbody');
                 let modalAddPRBodyTable = document.querySelector('#modalAddPR .modal-body table tbody');
-                modalAddPEBodyTable.innerHTML = '';
+                if (modalAddPEBodyTable)
+                    modalAddPEBodyTable.innerHTML = '';
                 modalAddPRBodyTable.innerHTML = '';
                 data.forEach(item => {
                     let tr = document.createElement('tr');
@@ -160,7 +163,8 @@ const getAllProductReference = (dateByDay) => {
                     <td>${item.reference}</td>
                     <td><input id="valuePR${item.id}" type="number" class="form-control" value="0"></td>
                     `;
-                    modalAddPEBodyTable.appendChild(tr);
+                    if (modalAddPEBodyTable)
+                        modalAddPEBodyTable.appendChild(tr);
                     modalAddPRBodyTable.appendChild(tr2);
                 });
             }

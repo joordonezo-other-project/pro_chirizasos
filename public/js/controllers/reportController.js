@@ -35,29 +35,54 @@ const generateReport = () => {
                 let witOrdes = {
                     labels: [],
                     data: [],
+                    backgroundColor: 'rgba(11, 94, 215, 0.8)',
+                    borderColor: 'rgba(92, 99, 106, 1)',
                 };
                 if (typeOfReport == 'orders') {
                     if (typeOfChart == 'pie') {
+                        witOrdes.backgroundColor = [];
+                        witOrdes.borderColor = 'rgba(255, 255, 255, 1)';
                         dat.forEach(item => {
                             witOrdes.labels.push(item.orderDate);
                             witOrdes.data.push(item.value);
+                            witOrdes.backgroundColor.push(colorRGB());
                         });
                     } else {
                         dat.forEach(item => {
                             witOrdes.labels.push(item.orderDate);
-                            witOrdes.data.push({x:item.quantity, y: item.value});
+                            witOrdes.data.push({ x: item.quantity, y: item.value });
                         });
                     }
                 } else if (typeOfReport == 'stock') {
-                    dat.forEach(item => {
-                        witOrdes.labels.push(item.lastUpdate);
-                        witOrdes.data.push(item.units);
-                    });
+                    if (typeOfChart == 'pie') {
+                        witOrdes.backgroundColor = [];
+                        witOrdes.borderColor = 'rgba(255, 255, 255, 1)';
+                        dat.forEach(item => {
+                            witOrdes.labels.push(item.lastUpdate);
+                            witOrdes.data.push(item.units);
+                            witOrdes.backgroundColor.push(colorRGB());
+                        });
+                    } else {
+                        dat.forEach(item => {
+                            witOrdes.labels.push(item.lastUpdate);
+                            witOrdes.data.push(item.units);
+                        });
+                    }
                 } else if (typeOfReport == 'production') {
-                    dat.forEach(item => {
-                        witOrdes.labels.push(item.dateOfProduction);
-                        witOrdes.data.push(item.realProduction);
-                    });
+                    if (typeOfChart == 'pie') {
+                        witOrdes.backgroundColor = [];
+                        witOrdes.borderColor = 'rgba(255, 255, 255, 1)';
+                        dat.forEach(item => {
+                            witOrdes.labels.push(item.dateOfProduction);
+                            witOrdes.data.push(item.realProduction);
+                            witOrdes.backgroundColor.push(colorRGB());
+                        });
+                    } else {
+                        dat.forEach(item => {
+                            witOrdes.labels.push(item.dateOfProduction);
+                            witOrdes.data.push(item.realProduction);
+                        });
+                    }
                 }
 
                 let config = {
@@ -66,8 +91,8 @@ const generateReport = () => {
                         labels: witOrdes.labels,
                         datasets: [{
                             label: document.querySelector(`#typeOfReport option[value="${typeOfReport}"]`).textContent + ': ' + startDate + ' - ' + endDate,
-                            backgroundColor: 'rgb(11, 94, 215)',
-                            borderColor: 'rgba(255, 206, 86, 0.2)',
+                            backgroundColor: witOrdes.backgroundColor,
+                            borderColor: witOrdes.borderColor,
                             data: witOrdes.data,
                             hoverOffset: 10
                         }]

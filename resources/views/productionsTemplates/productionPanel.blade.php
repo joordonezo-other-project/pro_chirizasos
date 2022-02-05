@@ -1,5 +1,7 @@
-<button data-bs-toggle="modal" data-bs-target="#modalAddNewProduct" class="btn btn-primary mb-2"
-    title="Añadir nuevo producto">Nuevo Producto <img src="img/icos/plus-circle.svg"></button>
+@if (Auth::user()->rol == 'engineer')
+    <button data-bs-toggle="modal" data-bs-target="#modalAddNewProduct" class="btn btn-primary mb-2"
+        title="Añadir nuevo producto">Nuevo Producto <img src="img/icos/plus-circle.svg"></button>
+@endif
 
 @include('productionsTemplates.modals.modalAddNewProduct')
 
